@@ -29,6 +29,12 @@ trajectory = lms_train(X, D, eta=eta, epochs=epochs)
 # Extract weights and biases
 weights, biases = zip(*trajectory)
 
+# Calculate final predicted values and squared error
+final_w = weights[-1]
+final_b = biases[-1]
+y_pred = final_w * X + final_b
+squared_error = np.sum((D - y_pred) ** 2)
+
 # Plot LMS fitting result
 plt.scatter(X, D, label="Data points", color="blue")
 plt.plot(X, weights[-1] * X + biases[-1], label=f"LMS Fit: y = {weights[-1]:.2f}x + {biases[-1]:.2f}", color="green")
@@ -51,3 +57,4 @@ plt.grid(alpha=0.3)
 plt.show()
 
 print(f"LMS Final Solution: w = {weights[-1]:.4f}, b = {biases[-1]:.4f}")
+print(f"Squared Error: {squared_error:.4f}")

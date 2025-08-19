@@ -12,6 +12,12 @@ X_prime = np.vstack([X, np.ones(len(X))]).T
 theta = np.linalg.inv(X_prime.T @ X_prime) @ X_prime.T @ D
 w, b = theta
 
+# Calculate predicted values
+y_pred = w * X + b
+
+# Calculate squared error
+squared_error = np.sum((D - y_pred) ** 2)
+
 # Plot the fitting result
 plt.scatter(X, D, label="Data points", color="blue")
 plt.plot(X, w * X + b, label=f"LLS Fit: y = {w:.2f}x + {b:.2f}", color="red")
@@ -23,3 +29,4 @@ plt.grid(alpha=0.3)
 plt.show()
 
 print(f"LLS Solution: w = {w:.4f}, b = {b:.4f}")
+print(f"Squared Error: {squared_error:.4f}")
