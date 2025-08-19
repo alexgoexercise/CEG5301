@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 # Perceptron Learning Algorithm
 # -----------------------------
-def perceptron_train(X, d, eta=1.0, epochs=20):
+def perceptron_train(X, d, eta=1, epochs=20):
     """
     Train a perceptron using the perceptron learning rule.
     X: input matrix (N x d)
@@ -20,7 +20,8 @@ def perceptron_train(X, d, eta=1.0, epochs=20):
     trajectory = [(w.copy(), b)]
 
     for _ in range(epochs):
-        for i in range(n_samples):
+        indices = np.random.permutation(n_samples)
+        for i in indices:
             v = np.dot(w, X[i]) + b
             y = 1 if v > 0 else 0
             e = d[i] - y  #compute error
@@ -48,6 +49,9 @@ def get_dataset(gate):
     elif gate == "NOT":
         X = np.array([[0],[1]])
         d = np.array([1,0])
+    elif gate == "XNOR":
+        X = np.array([[0,0],[0,1],[1,0],[1,1]])
+        d = np.array([1,0,0,1])
     else:
         raise ValueError("Unknown gate")
     return X, d
@@ -103,8 +107,8 @@ def plot_trajectory(trajectory, title, epochs, samples_per_epoch):
 # -----------------------------
 # Run Experiments
 # -----------------------------
-for gate in ["AND", "OR", "NAND", "NOT"]:
+for gate in ["XNOR"]:
     X, d = get_dataset(gate)
     epochs = 20
-    traj = perceptron_train(X, d, eta=1.0, epochs=epochs)
+    traj = perceptron_train(X, d, eta=1, epochs=epochs)
     plot_trajectory(traj, gate, epochs=epochs, samples_per_epoch=X.shape[0])
