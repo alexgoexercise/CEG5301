@@ -59,7 +59,7 @@ def main():
     sigma = 0.1  # given
 
     centers, w = solve_exact_interpolation_t(
-        x_tr, y_tr, sigma=sigma, ridge=0.0  # set small ridge like 1e-8 if unstable
+        x_tr, y_tr, sigma=sigma, ridge=0.0  
     )
 
     yhat_tr = predict_t(x_tr, centers, w, sigma)

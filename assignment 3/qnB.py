@@ -73,7 +73,7 @@ def predict_t(
 def main():
     x_tr, y_tr, x_te, y_te = make_data_t()
     num_centers = 20
-    ridge = 0.0  # or 1e-8 if needed
+    ridge = 0.0  
 
     centers, w, sigma = solve_fixed_random_centers_t(
         x_train=x_tr,
